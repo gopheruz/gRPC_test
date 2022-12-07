@@ -26,34 +26,43 @@ func main() {
 		panic(err)
 	}
 	fmt.Println(user)
-	user, err = client.Update(context.Background(), &service.UserReq{
+
+
+	data, err := client.Get(context.Background(), &service.IdMsg{Id: 3})
+	if err != nil {
+		panic(err)
+	}
+	fmt.Println(data)
+
+	
+	data, err = client.Update(context.Background(), &service.UserReq{
 		FirstName: faker.FirstName(),
 		LastName:  faker.LastName(),
-		Age:       18,
-		Id:        5,
+		Age:       3,
+		Id:        3,
 	})
 	if err != nil {
 		panic(err)
 	}
-	fmt.Println(user)
-	_, err = client.Delete(context.Background(), &service.IdMsg{Id: 9})
-	if err != nil {
-		fmt.Println(err.Error())
-		return
-	}
-	fmt.Println("user deleted succesfully")
-
-	data, err := client.GetAll(context.Background(), &service.GetAlluserParams{
-		Limit:  10,
-		Page:   1,
-		Search: "a",
+	fmt.Println(data)
+	many, err := client.GetAll(context.Background(), &service.GetAlluserParams{
 		SortBy: "id",
+		Page:   1,
+		Limit:  10,
 	})
 	if err != nil {
 		panic(err)
 	}
-	for _, val := range data.Users {
+	fmt.Print("\n\n###################GETALL################\n")
+	for _, val := range many.Users {
 		fmt.Println(val)
 	}
-	fmt.Println(data.Count)
+	fmt.Printf("count %d, \n\n", many.Count)
+
+
+	_, err= client.Delete(context.Background(), &service.IdMsg{Id: 5})
+	if err != nil{
+		panic(err)
+	}
+
 }
