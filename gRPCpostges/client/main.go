@@ -27,14 +27,12 @@ func main() {
 	}
 	fmt.Println(user)
 
-
 	data, err := client.Get(context.Background(), &service.IdMsg{Id: 3})
 	if err != nil {
 		panic(err)
 	}
 	fmt.Println(data)
 
-	
 	data, err = client.Update(context.Background(), &service.UserReq{
 		FirstName: faker.FirstName(),
 		LastName:  faker.LastName(),
@@ -59,9 +57,8 @@ func main() {
 	}
 	fmt.Printf("count %d, \n\n", many.Count)
 
-
-	_, err= client.Delete(context.Background(), &service.IdMsg{Id: 5})
-	if err != nil{
+	_, err = client.Delete(context.Background(), &service.IdMsg{Id: 5})
+	if err != nil {
 		panic(err)
 	}
 
